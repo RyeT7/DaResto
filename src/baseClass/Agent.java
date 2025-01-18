@@ -1,4 +1,4 @@
-package BaseClass;
+package baseClass;
 
 import utils.GameManager;
 import utils.Util;

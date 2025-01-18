@@ -1,6 +1,6 @@
 package customer;
 
-import BaseClass.Agent;
+import baseClass.Agent;
 import utils.Util;
 
 public class Customer implements Agent {

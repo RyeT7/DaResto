@@ -1,18 +1,20 @@
 package chef;
 
-import BaseClass.Agent;
+import baseClass.Agent;
 
 public class Chef implements Agent {
     private String name;
     private String customer;
     private int speed;
     private int skill;
+    private ChefStateMachine machine;
 
-    public Chef() {
+    public Chef(ChefStateMachine machine) {
         this.name = createName();
         this.customer = "";
         this.speed = 1;
         this.skill = 1;
+        this.machine = machine;
     }
 
     public String getName() {
@@ -41,5 +43,9 @@ public class Chef implements Agent {
 
     public void setSkill(int skill) {
         this.skill = skill;
+    }
+
+    public ChefStateMachine getMachine() {
+        return machine;
     }
 }

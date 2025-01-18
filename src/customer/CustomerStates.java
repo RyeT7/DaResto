@@ -8,6 +8,12 @@ public enum CustomerStates {
     WAIT_FOOD_WAITER("wait"),
     EAT("eat");
 
+    public enum CustomerHelper {
+        NONE,
+        WAITER,
+        CHEF
+    }
+
     public final String label;
 
     CustomerStates(String label){

@@ -1,24 +1,57 @@
 package chef;
 
-import BaseClass.ThreadMachine;
+import baseClass.AbstractState;
+import baseClass.StateMachine;
+import baseClass.ThreadMachine;
+import utils.GameManager;
 
-public class ChefStateMachine implements Runnable, ThreadMachine {
-    private Chef chef;
+public class ChefStateMachine extends StateMachine<ChefStates> implements Runnable, ThreadMachine<ChefStates, AbstractState<ChefStates>> {
+    private final Chef chef;
+    private int seconds;
     private Thread chefThread;
 
-    private ChefStates currentState;
-
     public ChefStateMachine() {
-        chef = new Chef();
-        currentState = ChefStates.IDLE;
+        chef = new Chef(this);
+        fillStateMap();
+        GameManager.getInstance().addCharacters(chef);
+
+        start();
 
         startThread();
     }
 
     @Override
-    public void run() {
-        while(true){
+    protected void fillStateMap() {
+        allStates.put(ChefStates.IDLE, new ChefIdleState());
+        allStates.put(ChefStates.COOK, new ChefCookState());
+        allStates.put(ChefStates.DONE, new ChefDoneState());
+    }
 
+    @Override
+    public void run() {
+        try {
+            update();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void start(){
+        currentState = allStates.get(ChefStates.IDLE);
+        currentState.enterState();
+        seconds = 1;
+    }
+
+    @Override
+    public void update() throws InterruptedException {
+        while(true){
+            seconds += 1;
+            Thread.sleep(1000);
+
+            ChefStates nextKey = currentState.getNextState();
+            AbstractState<ChefStates> nextState = allStates.get(nextKey);
+            transitionToNextStateOrContinue(currentState, nextState);
         }
     }
 

@@ -1,9 +1,9 @@
-package chef;
+package customer;
 
 import baseClass.AbstractState;
 
-public class ChefDoneState implements AbstractState<ChefStates> {
-    public ChefDoneState() {
+public class CustomerWaitState implements AbstractState<CustomerStates> {
+    public CustomerWaitState() {
     }
 
     @Override
@@ -22,12 +22,12 @@ public class ChefDoneState implements AbstractState<ChefStates> {
     }
 
     @Override
-    public ChefStates getNextState() {
+    public CustomerStates getNextState() {
         return null;
     }
 
     @Override
-    public ChefStates getKey() {
-        return ChefStates.DONE;
+    public CustomerStates getKey() {
+        return CustomerStates.WAIT_FOOD;
     }
 }

@@ -1,11 +1,11 @@
 package utils;
 
-import BaseClass.Agent;
+import baseClass.Agent;
 
 import java.util.ArrayList;
 
 public class GameManager {
-    private ArrayList<Agent> allCharacters;
+    private final ArrayList<Agent> allAgents;
     private static GameManager instance;
 
     public static GameManager getInstance(){
@@ -17,19 +17,19 @@ public class GameManager {
     }
 
     private GameManager(){
-        allCharacters = new ArrayList<>();
+        allAgents = new ArrayList<>();
     }
 
     public void addCharacters(Agent agent){
-        allCharacters.add(agent);
+        allAgents.add(agent);
     }
 
     public void clearAllCharacters(){
-        allCharacters.clear();
+        allAgents.clear();
     }
 
     public boolean isNameUnique(String name){
-        for (Agent agent : allCharacters){
+        for (Agent agent : allAgents){
             if(agent.getName().equals(name)){
                 return false;
             }

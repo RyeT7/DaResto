@@ -1,8 +1,11 @@
 package customer;
 
-import BaseClass.AbstractState;
+import baseClass.AbstractState;
 
-public class CustomerOrder implements AbstractState<CustomerStates> {
+public class CustomerOrderState implements AbstractState<CustomerStates> {
+    public CustomerOrderState() {
+    }
+
     @Override
     public void enterState() {
 
@@ -21,5 +24,10 @@ public class CustomerOrder implements AbstractState<CustomerStates> {
     @Override
     public CustomerStates getNextState() {
         return null;
+    }
+
+    @Override
+    public CustomerStates getKey() {
+        return CustomerStates.ORDER;
     }
 }

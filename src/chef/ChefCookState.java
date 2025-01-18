@@ -1,6 +1,6 @@
 package chef;
 
-import BaseClass.AbstractState;
+import baseClass.AbstractState;
 
 public class ChefCookState implements AbstractState<ChefStates> {
     public ChefCookState() {
@@ -24,5 +24,10 @@ public class ChefCookState implements AbstractState<ChefStates> {
     @Override
     public ChefStates getNextState() {
         return null;
+    }
+
+    @Override
+    public ChefStates getKey() {
+        return ChefStates.COOK;
     }
 }

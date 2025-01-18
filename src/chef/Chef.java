@@ -3,11 +3,11 @@ package chef;
 import baseClass.Agent;
 
 public class Chef implements Agent {
-    private String name;
+    private final String name;
     private String customer;
     private int speed;
     private int skill;
-    private ChefStateMachine machine;
+    private final ChefStateMachine machine;
 
     public Chef(ChefStateMachine machine) {
         this.name = createName();

@@ -3,7 +3,10 @@ package customer;
 import baseClass.AbstractState;
 
 public class CustomerOrderState implements AbstractState<CustomerStates> {
+    private CustomerStates.CustomerHelper customerHelper;
+
     public CustomerOrderState() {
+        customerHelper = CustomerStates.CustomerHelper.NONE;
     }
 
     @Override
@@ -28,6 +31,13 @@ public class CustomerOrderState implements AbstractState<CustomerStates> {
 
     @Override
     public CustomerStates getKey() {
-        return CustomerStates.ORDER;
+        switch(customerHelper){
+            case NONE:
+                return CustomerStates.ORDER;
+            case WAITER:
+                return CustomerStates.ORDER_WAITER;
+            default:
+                return null;
+        }
     }
 }

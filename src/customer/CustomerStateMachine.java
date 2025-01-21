@@ -21,12 +21,12 @@ public class CustomerStateMachine extends StateMachine<CustomerStates> implement
 
     @Override
     protected void fillStateMap() {
-        allStates.put(CustomerStates.ORDER, new CustomerOrderState());
-        allStates.put(CustomerStates.ORDER_WAITER, new CustomerOrderWaiterState());
-        allStates.put(CustomerStates.WAIT_FOOD, new CustomerWaitState());
-        allStates.put(CustomerStates.WAIT_FOOD_WAITER, new CustomerWaitWaiterState());
-        allStates.put(CustomerStates.WAIT_FOOD_CHEF, new CustomerWaitChefState());
-        allStates.put(CustomerStates.EAT, new CustomerEatState());
+        allStates.put(CustomerStates.ORDER, new CustomerOrderState(this));
+        allStates.put(CustomerStates.ORDER_WAITER, new CustomerOrderWaiterState(this));
+        allStates.put(CustomerStates.WAIT_FOOD, new CustomerWaitState(this));
+        allStates.put(CustomerStates.WAIT_FOOD_WAITER, new CustomerWaitWaiterState(this));
+        allStates.put(CustomerStates.WAIT_FOOD_CHEF, new CustomerWaitChefState(this));
+        allStates.put(CustomerStates.EAT, new CustomerEatState(this));
     }
 
     @Override

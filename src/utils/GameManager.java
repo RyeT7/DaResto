@@ -1,11 +1,8 @@
 package utils;
 
 import baseClass.Agent;
-import chef.Chef;
 import chef.ChefStateMachine;
-import customer.Customer;
 import customer.CustomerStateMachine;
-import waiter.Waiter;
 import waiter.WaiterStateMachine;
 
 import java.util.ArrayList;

@@ -3,7 +3,10 @@ package chef;
 import baseClass.BaseState;
 
 public class ChefDoneState implements BaseState<ChefStates> {
-    public ChefDoneState() {
+    private final ChefStateMachine chefStateMachine;
+
+    public ChefDoneState(ChefStateMachine chefStateMachine) {
+        this.chefStateMachine = chefStateMachine;
     }
 
     @Override

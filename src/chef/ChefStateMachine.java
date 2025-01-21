@@ -22,9 +22,9 @@ public class ChefStateMachine extends StateMachine<ChefStates> implements Runnab
 
     @Override
     protected void fillStateMap() {
-        allStates.put(ChefStates.IDLE, new ChefIdleState());
-        allStates.put(ChefStates.COOK, new ChefCookState());
-        allStates.put(ChefStates.DONE, new ChefDoneState());
+        allStates.put(ChefStates.IDLE, new ChefIdleState(this));
+        allStates.put(ChefStates.COOK, new ChefCookState(this));
+        allStates.put(ChefStates.DONE, new ChefDoneState(this));
     }
 
     @Override

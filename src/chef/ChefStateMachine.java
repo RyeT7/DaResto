@@ -1,11 +1,11 @@
 package chef;
 
-import baseClass.AbstractState;
+import baseClass.BaseState;
 import baseClass.StateMachine;
 import baseClass.ThreadMachine;
 import utils.GameManager;
 
-public class ChefStateMachine extends StateMachine<ChefStates> implements Runnable, ThreadMachine<ChefStates, AbstractState<ChefStates>> {
+public class ChefStateMachine extends StateMachine<ChefStates> implements Runnable, ThreadMachine<ChefStates, BaseState<ChefStates>> {
     private final Chef chef;
     private int seconds;
     private Thread chefThread;
@@ -13,7 +13,7 @@ public class ChefStateMachine extends StateMachine<ChefStates> implements Runnab
     public ChefStateMachine() {
         chef = new Chef(this);
         fillStateMap();
-        GameManager.getInstance().addCharacters(chef);
+        GameManager.getInstance().addChef(this);
 
         start();
 
@@ -50,7 +50,7 @@ public class ChefStateMachine extends StateMachine<ChefStates> implements Runnab
             Thread.sleep(1000);
 
             ChefStates nextKey = currentState.getNextState();
-            AbstractState<ChefStates> nextState = allStates.get(nextKey);
+            BaseState<ChefStates> nextState = allStates.get(nextKey);
             transitionToNextStateOrContinue(currentState, nextState);
         }
     }

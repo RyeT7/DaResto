@@ -2,8 +2,8 @@ package customer;
 
 import baseClass.BaseState;
 
-public class CustomerEatState implements BaseState<CustomerStates> {
-    public CustomerEatState() {
+public class CustomerOrderWaiterState implements BaseState<CustomerStates> {
+    public CustomerOrderWaiterState() {
     }
 
     @Override
@@ -28,6 +28,6 @@ public class CustomerEatState implements BaseState<CustomerStates> {
 
     @Override
     public CustomerStates getKey() {
-        return CustomerStates.EAT;
+        return CustomerStates.ORDER_WAITER;
     }
 }

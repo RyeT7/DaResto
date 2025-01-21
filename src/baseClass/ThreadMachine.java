@@ -1,6 +1,6 @@
 package baseClass;
 
-public interface ThreadMachine<StateKey extends Enum<StateKey>, State extends AbstractState<StateKey>> {
+public interface ThreadMachine<StateKey extends Enum<StateKey>, State extends BaseState<StateKey>> {
     boolean startThread();
     void start();
     void update() throws InterruptedException;

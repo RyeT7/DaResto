@@ -1,15 +1,19 @@
 package waiter;
 
+import baseClass.BaseState;
 import baseClass.StateMachine;
 import baseClass.ThreadMachine;
+import customer.CustomerStates;
+import utils.GameManager;
 
-public class WaiterStateMachine extends StateMachine implements Runnable, ThreadMachine {
+public class WaiterStateMachine extends StateMachine<WaiterState> implements Runnable, ThreadMachine<WaiterState, BaseState<WaiterState>> {
     private final Waiter waiter;
     private Thread waiterThread;
 
     public WaiterStateMachine() {
         waiter = new Waiter();
         fillStateMap();
+        GameManager.getInstance().addWaiter(this);
 
         start();
 
@@ -52,6 +56,9 @@ public class WaiterStateMachine extends StateMachine implements Runnable, Thread
         while (true){
             Thread.sleep(1000);
 
+            WaiterState nextKey = currentState.getNextState();
+            BaseState<WaiterState> nextState = allStates.get(nextKey);
+            transitionToNextStateOrContinue(currentState, nextState);
         }
     }
 

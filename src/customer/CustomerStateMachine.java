@@ -1,21 +1,18 @@
 package customer;
 
+import baseClass.BaseState;
 import baseClass.StateMachine;
 import baseClass.ThreadMachine;
 import utils.GameManager;
 
-public class CustomerStateMachine extends StateMachine<CustomerStates> implements Runnable, ThreadMachine {
+public class CustomerStateMachine extends StateMachine<CustomerStates> implements Runnable, ThreadMachine<CustomerStates, BaseState<CustomerStates>> {
     private final Customer customer;
     private Thread customerThread;
-
-    private CustomerOrderState customerOrderState;
-    private CustomerWaitState customerWaitState;
-    private CustomerEatState customerEatState;
 
     public CustomerStateMachine() {
         this.customer = new Customer();
         fillStateMap();
-        GameManager.getInstance().addCharacters(customer);
+        GameManager.getInstance().addCustomer(this);
 
         start();
 
@@ -24,21 +21,21 @@ public class CustomerStateMachine extends StateMachine<CustomerStates> implement
 
     @Override
     protected void fillStateMap() {
-        customerOrderState = new CustomerOrderState();
-        customerWaitState = new CustomerWaitState();
-        customerEatState = new CustomerEatState();
-
-        allStates.put(CustomerStates.ORDER, customerOrderState);
-        allStates.put(CustomerStates.ORDER_WAITER, customerOrderState);
-        allStates.put(CustomerStates.WAIT_FOOD, customerWaitState);
-        allStates.put(CustomerStates.WAIT_FOOD_WAITER, customerWaitState);
-        allStates.put(CustomerStates.WAIT_FOOD_CHEF, customerWaitState);
-        allStates.put(CustomerStates.EAT, customerEatState);
+        allStates.put(CustomerStates.ORDER, new CustomerOrderState());
+        allStates.put(CustomerStates.ORDER_WAITER, new CustomerOrderWaiterState());
+        allStates.put(CustomerStates.WAIT_FOOD, new CustomerWaitState());
+        allStates.put(CustomerStates.WAIT_FOOD_WAITER, new CustomerWaitWaiterState());
+        allStates.put(CustomerStates.WAIT_FOOD_CHEF, new CustomerWaitChefState());
+        allStates.put(CustomerStates.EAT, new CustomerEatState());
     }
 
     @Override
     public void run() {
-        update();
+        try {
+            update();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -48,9 +45,13 @@ public class CustomerStateMachine extends StateMachine<CustomerStates> implement
     }
 
     @Override
-    public void update() {
+    public void update() throws InterruptedException {
         while (true){
+            Thread.sleep(1000);
 
+            CustomerStates nextKey = currentState.getNextState();
+            BaseState<CustomerStates> nextState = allStates.get(nextKey);
+            transitionToNextStateOrContinue(currentState, nextState);
         }
     }
 

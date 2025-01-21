@@ -5,7 +5,7 @@ public enum WaiterState {
     TAKE_ORDER("take order"),
     WAIT_COOK("wait cook"),
     BRING_ORDER("bring order"),
-    SERVING_FOOD("serving_food");
+    SERVING_FOOD("serving food");
 
     public final String label;
 

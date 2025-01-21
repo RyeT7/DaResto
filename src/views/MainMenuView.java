@@ -1,7 +1,6 @@
 package views;
 
 import controller.MainMenuController;
-import utils.Util;
 
 public class MainMenuView implements View {
 

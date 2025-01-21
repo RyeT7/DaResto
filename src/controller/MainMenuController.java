@@ -5,7 +5,6 @@ import utils.Util;
 import views.ExitView;
 import views.HighScoreView;
 import views.MainMenuView;
-import views.View;
 
 public class MainMenuController {
 

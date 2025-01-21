@@ -1,8 +1,8 @@
 package chef;
 
-import baseClass.AbstractState;
+import baseClass.BaseState;
 
-public class ChefIdleState implements AbstractState<ChefStates> {
+public class ChefIdleState implements BaseState<ChefStates> {
     public ChefIdleState() {
     }
 

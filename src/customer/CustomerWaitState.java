@@ -1,27 +1,22 @@
 package customer;
 
-import baseClass.AbstractState;
+import baseClass.BaseState;
 
-public class CustomerWaitState implements AbstractState<CustomerStates> {
-    private CustomerStates.CustomerHelper customerHelper;
-
+public class CustomerWaitState implements BaseState<CustomerStates> {
     public CustomerWaitState() {
-        customerHelper = CustomerStates.CustomerHelper.NONE;
+
     }
 
     @Override
     public void enterState() {
-
     }
 
     @Override
     public void exitState() {
-
     }
 
     @Override
     public void updateState() {
-
     }
 
     @Override
@@ -31,15 +26,6 @@ public class CustomerWaitState implements AbstractState<CustomerStates> {
 
     @Override
     public CustomerStates getKey() {
-        switch (customerHelper){
-            case NONE:
-                return CustomerStates.WAIT_FOOD;
-            case WAITER:
-                return CustomerStates.WAIT_FOOD_WAITER;
-            case CHEF:
-                return CustomerStates.WAIT_FOOD_CHEF;
-            default:
-                return null;
-        }
+        return CustomerStates.WAIT_FOOD;
     }
 }

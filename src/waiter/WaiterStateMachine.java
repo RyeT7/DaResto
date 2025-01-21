@@ -3,7 +3,6 @@ package waiter;
 import baseClass.BaseState;
 import baseClass.StateMachine;
 import baseClass.ThreadMachine;
-import customer.CustomerStates;
 import utils.GameManager;
 
 public class WaiterStateMachine extends StateMachine<WaiterState> implements Runnable, ThreadMachine<WaiterState, BaseState<WaiterState>> {
@@ -22,7 +21,11 @@ public class WaiterStateMachine extends StateMachine<WaiterState> implements Run
 
     @Override
     protected void fillStateMap() {
-
+        allStates.put(WaiterState.IDLE, new WaiterIdleState(this));
+        allStates.put(WaiterState.TAKE_ORDER, new WaiterTakeOrderState(this));
+        allStates.put(WaiterState.WAIT_COOK, new WaiterWaitCookState(this));
+        allStates.put(WaiterState.BRING_ORDER, new WaiterBringOrderState(this));
+        allStates.put(WaiterState.SERVING_FOOD, new WaiterServingFoodState(this));
     }
 
     @Override

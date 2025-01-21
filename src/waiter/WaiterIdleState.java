@@ -3,7 +3,10 @@ package waiter;
 import baseClass.BaseState;
 
 public class WaiterIdleState implements BaseState<WaiterState> {
-    public WaiterIdleState() {
+    private final WaiterStateMachine waiterStateMachine;
+
+    public WaiterIdleState(WaiterStateMachine waiterStateMachine) {
+        this.waiterStateMachine = waiterStateMachine;
     }
 
     @Override

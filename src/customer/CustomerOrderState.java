@@ -3,8 +3,11 @@ package customer;
 import baseClass.BaseState;
 
 public class CustomerOrderState implements BaseState<CustomerStates> {
+    private final CustomerStateMachine customerStateMachine;
 
-    public CustomerOrderState() {
+
+    public CustomerOrderState(CustomerStateMachine customerStateMachine) {
+        this.customerStateMachine = customerStateMachine;
     }
 
     @Override

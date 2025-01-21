@@ -2,8 +2,13 @@ package customer;
 
 import baseClass.BaseState;
 
+import javax.swing.plaf.IconUIResource;
+
 public class CustomerWaitWaiterState implements BaseState<CustomerStates> {
-    public CustomerWaitWaiterState() {
+    private final CustomerStateMachine customerStateMachine;
+
+    public CustomerWaitWaiterState(CustomerStateMachine customerStateMachine) {
+        this.customerStateMachine = customerStateMachine;
     }
 
     @Override

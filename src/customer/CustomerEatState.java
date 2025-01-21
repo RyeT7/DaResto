@@ -3,7 +3,10 @@ package customer;
 import baseClass.BaseState;
 
 public class CustomerEatState implements BaseState<CustomerStates> {
-    public CustomerEatState() {
+    private final CustomerStateMachine customerStateMachine;
+
+    public CustomerEatState(CustomerStateMachine customerStateMachine) {
+        this.customerStateMachine = customerStateMachine;
     }
 
     @Override

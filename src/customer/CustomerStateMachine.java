@@ -8,6 +8,7 @@ import utils.GameManager;
 public class CustomerStateMachine extends StateMachine<CustomerStates> implements Runnable, ThreadMachine<CustomerStates, BaseState<CustomerStates>> {
     private final Customer customer;
     private Thread customerThread;
+    private int seconds;
 
     public CustomerStateMachine() {
         this.customer = new Customer();
@@ -42,11 +43,13 @@ public class CustomerStateMachine extends StateMachine<CustomerStates> implement
     public void start() {
         currentState = allStates.get(CustomerStates.ORDER);
         currentState.enterState();
+        seconds = 0;
     }
 
     @Override
     public void update() throws InterruptedException {
         while (true){
+            seconds += 1;
             Thread.sleep(1000);
 
             CustomerStates nextKey = currentState.getNextState();
@@ -69,5 +72,10 @@ public class CustomerStateMachine extends StateMachine<CustomerStates> implement
 
     public Customer getCustomer() {
         return customer;
+    }
+
+    @Override
+    protected int getSeconds() {
+        return seconds;
     }
 }

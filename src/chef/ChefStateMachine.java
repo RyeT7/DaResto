@@ -40,7 +40,7 @@ public class ChefStateMachine extends StateMachine<ChefStates> implements Runnab
     public void start(){
         currentState = allStates.get(ChefStates.IDLE);
         currentState.enterState();
-        seconds = 1;
+        seconds = 0;
     }
 
     @Override
@@ -69,5 +69,10 @@ public class ChefStateMachine extends StateMachine<ChefStates> implements Runnab
 
     public Chef getChef() {
         return chef;
+    }
+
+    @Override
+    protected int getSeconds() {
+        return seconds;
     }
 }

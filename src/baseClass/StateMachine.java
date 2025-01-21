@@ -12,4 +12,5 @@ public abstract class StateMachine<State extends Enum<State>> {
     protected BaseState<State> currentState;
 
     protected abstract void fillStateMap();
+    protected abstract int getSeconds();
 }

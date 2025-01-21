@@ -3,11 +3,13 @@ package waiter;
 import baseClass.BaseState;
 import baseClass.StateMachine;
 import baseClass.ThreadMachine;
+import chef.ChefStates;
 import utils.GameManager;
 
 public class WaiterStateMachine extends StateMachine<WaiterState> implements Runnable, ThreadMachine<WaiterState, BaseState<WaiterState>> {
     private final Waiter waiter;
     private Thread waiterThread;
+    private int seconds;
 
     public WaiterStateMachine() {
         waiter = new Waiter();
@@ -51,12 +53,15 @@ public class WaiterStateMachine extends StateMachine<WaiterState> implements Run
 
     @Override
     public void start() {
-
+        currentState = allStates.get(WaiterState.IDLE);
+        currentState.enterState();
+        seconds = 0;
     }
 
     @Override
     public void update() throws InterruptedException {
         while (true){
+            seconds += 1;
             Thread.sleep(1000);
 
             WaiterState nextKey = currentState.getNextState();
@@ -67,5 +72,10 @@ public class WaiterStateMachine extends StateMachine<WaiterState> implements Run
 
     public Waiter getWaiter() {
         return waiter;
+    }
+
+    @Override
+    protected int getSeconds() {
+        return seconds;
     }
 }

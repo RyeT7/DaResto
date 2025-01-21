@@ -1,11 +1,12 @@
 package chef;
 
 import baseClass.BaseState;
+import baseClass.Employee;
 import baseClass.StateMachine;
 import baseClass.ThreadMachine;
 import utils.GameManager;
 
-public class ChefStateMachine extends StateMachine<ChefStates> implements Runnable, ThreadMachine<ChefStates, BaseState<ChefStates>> {
+public class ChefStateMachine extends StateMachine<ChefStates> implements Runnable, ThreadMachine<ChefStates, BaseState<ChefStates>>, Employee {
     private final Chef chef;
     private int seconds;
     private Thread chefThread;

@@ -1,12 +1,13 @@
 package waiter;
 
 import baseClass.BaseState;
+import baseClass.Employee;
 import baseClass.StateMachine;
 import baseClass.ThreadMachine;
 import chef.ChefStates;
 import utils.GameManager;
 
-public class WaiterStateMachine extends StateMachine<WaiterState> implements Runnable, ThreadMachine<WaiterState, BaseState<WaiterState>> {
+public class WaiterStateMachine extends StateMachine<WaiterState> implements Runnable, ThreadMachine<WaiterState, BaseState<WaiterState>>, Employee {
     private final Waiter waiter;
     private Thread waiterThread;
     private int seconds;

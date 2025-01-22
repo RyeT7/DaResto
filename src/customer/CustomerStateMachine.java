@@ -1,11 +1,12 @@
 package customer;
 
 import baseClass.BaseState;
+import baseClass.Entity;
 import baseClass.StateMachine;
 import baseClass.ThreadMachine;
 import utils.GameManager;
 
-public class CustomerStateMachine extends StateMachine<CustomerStates> implements Runnable, ThreadMachine<CustomerStates, BaseState<CustomerStates>> {
+public class CustomerStateMachine extends StateMachine<CustomerStates> implements Runnable, ThreadMachine<CustomerStates, BaseState<CustomerStates>>, Entity {
     private final Customer customer;
     private Thread customerThread;
     private int seconds;
@@ -78,4 +79,6 @@ public class CustomerStateMachine extends StateMachine<CustomerStates> implement
     protected int getSeconds() {
         return seconds;
     }
+
+
 }

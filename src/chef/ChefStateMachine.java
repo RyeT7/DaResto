@@ -1,12 +1,10 @@
 package chef;
 
-import baseClass.BaseState;
-import baseClass.Employee;
-import baseClass.StateMachine;
-import baseClass.ThreadMachine;
+import Restaurant.Restaurant;
+import baseClass.*;
 import utils.GameManager;
 
-public class ChefStateMachine extends StateMachine<ChefStates> implements Runnable, ThreadMachine<ChefStates, BaseState<ChefStates>>, Employee {
+public class ChefStateMachine extends StateMachine<ChefStates> implements Runnable, ThreadMachine<ChefStates, BaseState<ChefStates>>, Employee, Entity {
     private final Chef chef;
     private int seconds;
     private Thread chefThread;
@@ -75,5 +73,10 @@ public class ChefStateMachine extends StateMachine<ChefStates> implements Runnab
     @Override
     protected int getSeconds() {
         return seconds;
+    }
+
+    @Override
+    public void sendEntity(Entity to) {
+        Restaurant.getInstance().notifyEntities(this, this);
     }
 }

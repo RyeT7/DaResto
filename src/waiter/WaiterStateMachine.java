@@ -1,12 +1,9 @@
 package waiter;
 
-import baseClass.BaseState;
-import baseClass.Employee;
-import baseClass.StateMachine;
-import baseClass.ThreadMachine;
+import baseClass.*;
 import utils.GameManager;
 
-public class WaiterStateMachine extends StateMachine<WaiterState> implements Runnable, ThreadMachine<WaiterState, BaseState<WaiterState>>, Employee {
+public class WaiterStateMachine extends StateMachine<WaiterState> implements Runnable, ThreadMachine<WaiterState, BaseState<WaiterState>>, Employee, Entity {
     private final Waiter waiter;
     private Thread waiterThread;
     private int seconds;
@@ -78,4 +75,6 @@ public class WaiterStateMachine extends StateMachine<WaiterState> implements Run
     protected int getSeconds() {
         return seconds;
     }
+
+
 }

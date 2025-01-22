@@ -7,7 +7,6 @@ import waiter.WaiterStateMachine;
 
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 
 public class GameManager {
     private final ArrayList<Agent> agents;
@@ -16,7 +15,7 @@ public class GameManager {
     private final ArrayList<CustomerStateMachine> customers;
     private static GameManager instance;
 
-    private ScheduledExecutorService scheduledExecutorService;
+    private ArrayList<Runnable> runnables;
 
     public static GameManager getInstance(){
         if(instance == null){
@@ -32,7 +31,14 @@ public class GameManager {
         chefs = new ArrayList<>();
         customers = new ArrayList<>();
 
-        scheduledExecutorService = Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors());
+        runnables = new ArrayList<>();
+    }
+
+    public void addThreads(Runnable command){
+
+    }
+
+    public void pauseThreads(){
     }
 
     public void addCharacters(Agent agent){

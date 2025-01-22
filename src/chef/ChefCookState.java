@@ -4,29 +4,39 @@ import baseClass.BaseState;
 
 public class ChefCookState implements BaseState<ChefStates> {
     private final ChefStateMachine chefStateMachine;
+    private int secondsToFinishAction;
+    private Chef chef;
 
     public ChefCookState(ChefStateMachine chefStateMachine) {
         this.chefStateMachine = chefStateMachine;
+        secondsToFinishAction = 0;
+        chef = chefStateMachine.getChef();
     }
 
     @Override
     public void enterState() {
-
+        int secondWhenStart = chefStateMachine.getSeconds();
+        int speed = chef.getSpeed();
+        secondsToFinishAction = secondWhenStart + speed;
     }
 
     @Override
     public void exitState() {
-
+        secondsToFinishAction = 0;
     }
 
     @Override
     public void updateState() {
-
+        chef.setStatus("cook");
     }
 
     @Override
     public ChefStates getNextState() {
-        return null;
+        if (chefStateMachine.getSeconds() < secondsToFinishAction){
+            return ChefStates.COOK;
+        } else {
+            return ChefStates.DONE;
+        }
     }
 
     @Override

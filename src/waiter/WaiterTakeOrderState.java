@@ -2,7 +2,7 @@ package waiter;
 
 import baseClass.BaseState;
 
-public class WaiterTakeOrderState implements BaseState<WaiterState> {
+public class WaiterTakeOrderState implements BaseState<WaiterStates> {
     private final WaiterStateMachine waiterStateMachine;
 
     public WaiterTakeOrderState(WaiterStateMachine waiterStateMachine) {
@@ -25,12 +25,12 @@ public class WaiterTakeOrderState implements BaseState<WaiterState> {
     }
 
     @Override
-    public WaiterState getNextState() {
+    public WaiterStates getNextState() {
         return null;
     }
 
     @Override
-    public WaiterState getKey() {
-        return WaiterState.TAKE_ORDER;
+    public WaiterStates getKey() {
+        return WaiterStates.TAKE_ORDER;
     }
 }

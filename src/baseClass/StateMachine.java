@@ -2,7 +2,7 @@ package baseClass;
 
 import java.util.Hashtable;
 
-public abstract class StateMachine<State extends Enum<State>> {
+public abstract class StateMachine<State extends Enum<State>> implements Runnable {
     protected Hashtable<State, BaseState<State>> allStates;
 
     public StateMachine() {
@@ -13,4 +13,6 @@ public abstract class StateMachine<State extends Enum<State>> {
 
     protected abstract void fillStateMap();
     protected abstract int getSeconds();
+    public abstract Thread getThread();
+    protected abstract RestaurantMediator getMediator();
 }

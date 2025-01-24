@@ -1,6 +1,5 @@
 package main;
 
-import utils.GameManager;
 import utils.Router;
 import views.MainMenuView;
 

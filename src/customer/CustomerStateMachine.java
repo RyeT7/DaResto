@@ -1,20 +1,19 @@
 package customer;
 
-import baseClass.BaseState;
-import baseClass.Entity;
-import baseClass.StateMachine;
-import baseClass.ThreadMachine;
-import utils.GameManager;
+import baseClass.*;
+import Restaurant.RestaurantManager;
 
-public class CustomerStateMachine extends StateMachine<CustomerStates> implements Runnable, ThreadMachine<CustomerStates, BaseState<CustomerStates>>, Entity {
+public class CustomerStateMachine extends StateMachine<CustomerStates> implements ThreadMachine<CustomerStates, BaseState<CustomerStates>>, Entity {
     private final Customer customer;
     private Thread customerThread;
     private int seconds;
+    private RestaurantMediator mediator;
 
-    public CustomerStateMachine() {
+    public CustomerStateMachine(RestaurantMediator mediator) {
         this.customer = new Customer();
         fillStateMap();
-        GameManager.getInstance().addCustomer(this);
+        RestaurantManager.getInstance().addCustomer(this);
+        this.mediator = mediator;
 
         start();
 
@@ -80,5 +79,23 @@ public class CustomerStateMachine extends StateMachine<CustomerStates> implement
         return seconds;
     }
 
+    @Override
+    public void sendEntity(Entity to) {
 
+    }
+
+    @Override
+    public Thread getThread() {
+        return customerThread;
+    }
+
+    @Override
+    public BaseState<CustomerStates> getCurrentState() {
+        return currentState;
+    }
+
+    @Override
+    protected RestaurantMediator getMediator() {
+        return mediator;
+    }
 }

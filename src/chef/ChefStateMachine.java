@@ -1,18 +1,19 @@
 package chef;
 
-import Restaurant.Restaurant;
 import baseClass.*;
-import utils.GameManager;
+import Restaurant.RestaurantManager;
 
-public class ChefStateMachine extends StateMachine<ChefStates> implements Runnable, ThreadMachine<ChefStates, BaseState<ChefStates>>, Employee, Entity {
+public class ChefStateMachine extends StateMachine<ChefStates> implements ThreadMachine<ChefStates, BaseState<ChefStates>>, Employee, Entity {
     private final Chef chef;
     private int seconds;
     private Thread chefThread;
+    private RestaurantMediator mediator;
 
-    public ChefStateMachine() {
+    public ChefStateMachine(RestaurantMediator mediator) {
         chef = new Chef(this);
         fillStateMap();
-        GameManager.getInstance().addChef(this);
+        RestaurantManager.getInstance().addChef(this);
+        this.mediator = mediator;
 
         start();
 
@@ -45,12 +46,12 @@ public class ChefStateMachine extends StateMachine<ChefStates> implements Runnab
     @Override
     public void update() throws InterruptedException {
         while(true){
-            seconds += 1;
-            Thread.sleep(1000);
-
             ChefStates nextKey = currentState.getNextState();
             BaseState<ChefStates> nextState = allStates.get(nextKey);
             transitionToNextStateOrContinue(currentState, nextState);
+
+            Thread.sleep(1000);
+            seconds += 1;
         }
     }
 
@@ -77,6 +78,20 @@ public class ChefStateMachine extends StateMachine<ChefStates> implements Runnab
 
     @Override
     public void sendEntity(Entity to) {
-        Restaurant.getInstance().notifyEntities(this, this);
+    }
+
+    @Override
+    public Thread getThread() {
+        return chefThread;
+    }
+
+    @Override
+    public BaseState<ChefStates> getCurrentState() {
+        return currentState;
+    }
+
+    @Override
+    protected RestaurantMediator getMediator() {
+        return mediator;
     }
 }

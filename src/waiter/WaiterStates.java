@@ -1,6 +1,6 @@
 package waiter;
 
-public enum WaiterState {
+public enum WaiterStates {
     IDLE("idle"),
     TAKE_ORDER("take order"),
     WAIT_COOK("wait cook"),
@@ -9,7 +9,7 @@ public enum WaiterState {
 
     public final String label;
 
-    WaiterState(String label){
+    WaiterStates(String label){
         this.label = label;
     }
 }

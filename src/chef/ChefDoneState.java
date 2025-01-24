@@ -33,4 +33,9 @@ public class ChefDoneState implements BaseState<ChefStates> {
     public ChefStates getKey() {
         return ChefStates.DONE;
     }
+
+    @Override
+    public String toString() {
+        return String.format("done<%s>", "Customer");
+    }
 }

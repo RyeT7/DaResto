@@ -1,6 +1,6 @@
 package baseClass;
 
-import utils.GameManager;
+import Restaurant.RestaurantManager;
 import utils.Util;
 
 public interface Agent {
@@ -12,7 +12,7 @@ public interface Agent {
 
     default String createName(){
         String name = generateName();
-        while (GameManager.getInstance().isNameUnique(name)){
+        while (RestaurantManager.getInstance().isNameUnique(name)){
             name = generateName();
         }
 

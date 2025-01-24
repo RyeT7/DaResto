@@ -1,17 +1,19 @@
 package waiter;
 
 import baseClass.*;
-import utils.GameManager;
+import Restaurant.RestaurantManager;
 
-public class WaiterStateMachine extends StateMachine<WaiterState> implements Runnable, ThreadMachine<WaiterState, BaseState<WaiterState>>, Employee, Entity {
+public class WaiterStateMachine extends StateMachine<WaiterStates> implements ThreadMachine<WaiterStates, BaseState<WaiterStates>>, Employee, Entity {
     private final Waiter waiter;
     private Thread waiterThread;
     private int seconds;
+    private RestaurantMediator mediator;
 
-    public WaiterStateMachine() {
+    public WaiterStateMachine(RestaurantMediator mediator) {
         waiter = new Waiter();
         fillStateMap();
-        GameManager.getInstance().addWaiter(this);
+        RestaurantManager.getInstance().addWaiter(this);
+        this.mediator = mediator;
 
         start();
 
@@ -20,11 +22,11 @@ public class WaiterStateMachine extends StateMachine<WaiterState> implements Run
 
     @Override
     protected void fillStateMap() {
-        allStates.put(WaiterState.IDLE, new WaiterIdleState(this));
-        allStates.put(WaiterState.TAKE_ORDER, new WaiterTakeOrderState(this));
-        allStates.put(WaiterState.WAIT_COOK, new WaiterWaitCookState(this));
-        allStates.put(WaiterState.BRING_ORDER, new WaiterBringOrderState(this));
-        allStates.put(WaiterState.SERVING_FOOD, new WaiterServingFoodState(this));
+        allStates.put(WaiterStates.IDLE, new WaiterIdleState(this));
+        allStates.put(WaiterStates.TAKE_ORDER, new WaiterTakeOrderState(this));
+        allStates.put(WaiterStates.WAIT_COOK, new WaiterWaitCookState(this));
+        allStates.put(WaiterStates.BRING_ORDER, new WaiterBringOrderState(this));
+        allStates.put(WaiterStates.SERVING_FOOD, new WaiterServingFoodState(this));
     }
 
     @Override
@@ -50,7 +52,7 @@ public class WaiterStateMachine extends StateMachine<WaiterState> implements Run
 
     @Override
     public void start() {
-        currentState = allStates.get(WaiterState.IDLE);
+        currentState = allStates.get(WaiterStates.IDLE);
         currentState.enterState();
         seconds = 0;
     }
@@ -61,8 +63,8 @@ public class WaiterStateMachine extends StateMachine<WaiterState> implements Run
             seconds += 1;
             Thread.sleep(1000);
 
-            WaiterState nextKey = currentState.getNextState();
-            BaseState<WaiterState> nextState = allStates.get(nextKey);
+            WaiterStates nextKey = currentState.getNextState();
+            BaseState<WaiterStates> nextState = allStates.get(nextKey);
             transitionToNextStateOrContinue(currentState, nextState);
         }
     }
@@ -76,5 +78,23 @@ public class WaiterStateMachine extends StateMachine<WaiterState> implements Run
         return seconds;
     }
 
+    @Override
+    public void sendEntity(Entity to) {
 
+    }
+
+    @Override
+    public Thread getThread() {
+        return waiterThread;
+    }
+
+    @Override
+    public BaseState<WaiterStates> getCurrentState() {
+        return currentState;
+    }
+
+    @Override
+    protected RestaurantMediator getMediator() {
+        return null;
+    }
 }

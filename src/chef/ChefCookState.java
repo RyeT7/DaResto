@@ -27,7 +27,7 @@ public class ChefCookState implements BaseState<ChefStates> {
 
     @Override
     public void updateState() {
-        chef.setStatus("cook");
+
     }
 
     @Override
@@ -42,5 +42,15 @@ public class ChefCookState implements BaseState<ChefStates> {
     @Override
     public ChefStates getKey() {
         return ChefStates.COOK;
+    }
+
+    @Override
+    public void changeNextKey() {
+        //
+    }
+
+    @Override
+    public String toString() {
+        return String.format("cook<%s>", "Customer");
     }
 }

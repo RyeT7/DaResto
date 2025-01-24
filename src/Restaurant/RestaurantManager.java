@@ -1,37 +1,39 @@
-package utils;
+package Restaurant;
 
 import baseClass.Agent;
+import baseClass.Entity;
+import baseClass.RestaurantMediator;
+import baseClass.StateMachine;
 import chef.ChefStateMachine;
 import customer.CustomerStateMachine;
 import waiter.WaiterStateMachine;
 
 import java.util.ArrayList;
-import java.util.concurrent.Executors;
 
-public class GameManager {
+public class RestaurantManager implements RestaurantMediator {
     private final ArrayList<Agent> agents;
     private final ArrayList<WaiterStateMachine> waiters;
     private final ArrayList<ChefStateMachine> chefs;
     private final ArrayList<CustomerStateMachine> customers;
-    private static GameManager instance;
+    private static RestaurantManager instance;
 
-    private ArrayList<Runnable> runnables;
+    private ArrayList<Entity> entities;
 
-    public static GameManager getInstance(){
+    public static RestaurantManager getInstance(){
         if(instance == null){
-            instance = new GameManager();
+            instance = new RestaurantManager();
         }
 
         return instance;
     }
 
-    private GameManager(){
+    private RestaurantManager(){
         agents = new ArrayList<>();
         waiters = new ArrayList<>();
         chefs = new ArrayList<>();
         customers = new ArrayList<>();
 
-        runnables = new ArrayList<>();
+        entities = new ArrayList<>();
     }
 
     public void addThreads(Runnable command){
@@ -39,6 +41,7 @@ public class GameManager {
     }
 
     public void pauseThreads(){
+
     }
 
     public void addCharacters(Agent agent){
@@ -75,5 +78,15 @@ public class GameManager {
     public void addWaiter(WaiterStateMachine waiter){
         waiters.add(waiter);
         addCharacters(waiter.getWaiter());
+    }
+
+    public void addEntities(Entity entity){
+        entities.add(entity);
+    }
+
+    @Override
+    public void notifyEntities(Entity from, Entity to) {
+        from.getCurrentState().changeNextKey();
+        to.getCurrentState().changeNextKey();
     }
 }
